@@ -59,7 +59,8 @@ function draw() {
             ballDY = -ballDY;
         } else {
             clearInterval(gameloop);
-            alert('Game Over')
+            gameOverMessage()
+            
         }
     }
 }
@@ -78,6 +79,26 @@ function keyInput(e) {
                 paddleX = boardX - paddleW;
             }
             break;
+    }
+}
+
+function gameOverMessage() {
+    const html = document.querySelector('html');
+
+    const panel = document.createElement('div');
+    panel.setAttribute('class', 'msgBox');
+    html.appendChild(panel);
+
+    const msg = document.createElement('p');
+    msg.textContent = 'Game Over';
+    panel.appendChild(msg);
+
+    const restartButton = document.createElement('button');
+    restartButton.textContent = 'Restart';
+    panel.appendChild(restartButton);
+
+    restartButton.onclick = function() {
+        location.reload()
     }
 }
 
