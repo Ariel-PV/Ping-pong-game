@@ -14,9 +14,11 @@ let ballY = 150;
 let ballDX = 2;
 let ballDY = 4;
 
+let score = 0;
+
 function drawGameCanvas() {
     canvas = document.getElementById('gameBoard');
-    
+
     if (canvas.getContext) {
         context = canvas.getContext('2d');
         gameloop = setInterval(draw, 16)
@@ -27,7 +29,7 @@ function drawGameCanvas() {
 function draw() {
     context.clearRect(0, 0, boardX, boardY);
 
-    context.fillStyle = 'thistle'
+    context.fillStyle = 'thistle';
     context.beginPath();
     context.rect(0, 0, boardX, boardY);
     context.closePath();
@@ -45,22 +47,26 @@ function draw() {
     context.closePath();
     context.fill();
 
+    let scoreText = 'Score: ' + score;
+    context.fillStyle = 'black';
+    context.fillText(scoreText, 10, 20);
+
     ballX += ballDX;
     ballY += ballDY;
-    
-    if(ballX + ballDX > boardX - 15 || ballX + ballDX < 15) {
+
+    if (ballX + ballDX > boardX - 15 || ballX + ballDX < 15) {
         ballDX = -ballDX;
     }
 
-    if(ballY + ballDY < 15) {
+    if (ballY + ballDY < 15) {
         ballDY = -ballDY;
     } else if (ballY + ballDY > boardY - 15) {
         if (ballX > paddleX && ballX < paddleX + paddleW) {
-            ballDY = -ballDY;
+            ballDY = -ballDY
+            score += 10
         } else {
             clearInterval(gameloop);
             gameOverMessage()
-            
         }
     }
 }
@@ -97,9 +103,8 @@ function gameOverMessage() {
     restartButton.textContent = 'Restart';
     panel.appendChild(restartButton);
 
-    restartButton.onclick = function() {
+    restartButton.onclick = function () {
         location.reload()
     }
 }
-
 drawGameCanvas()
