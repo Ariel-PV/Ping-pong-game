@@ -63,7 +63,7 @@ function draw() {
     } else if (ballY + ballDY > boardY - 15) {
         if (ballX > paddleX && ballX < paddleX + paddleW) {
             ballDY = -ballDY
-            score += 10
+            score ++
         } else {
             clearInterval(gameloop);
             gameOverMessage()
